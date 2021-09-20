@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+.venv
+dist/
+.vscode/
+__pycache__/
+coverage.xml
+.coverage
