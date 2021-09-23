@@ -1,9 +1,11 @@
-import requests
-import os
+from page_loader.main import download
+
 
 def main():
-    resp = requests.get('https://ru.hexlet.io/courses')
-    print(resp.text)
+    print(download(url, dest_dir))
+
+    #cwd = os.getcwd
+    #print(cwd)
 
 if __name__ == '__main__':
     main()
