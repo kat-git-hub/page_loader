@@ -1,11 +1,11 @@
 from page_loader.main import download
+from  page_loader.cli import parse_args
 
 
 def main():
-    print(download(url, dest_dir))
+    args = parse_args()
+    print(download(args.url, args.output))
 
-    #cwd = os.getcwd
-    #print(cwd)
 
 if __name__ == '__main__':
     main()

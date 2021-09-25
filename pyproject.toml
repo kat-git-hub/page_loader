@@ -9,7 +9,10 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pytest = "^6.2.3"
+pytest-cov = "^2.11.1"
 requests = "^2.13.0"
+requests-mock = "^1.9.3"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.2"
