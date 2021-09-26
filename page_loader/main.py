@@ -25,3 +25,6 @@ def download(url, path):
     else:
         print("Download failed: status code {}\n{}"
               .format(r.status_code, r.text))
+
+def download_page():
+    pass
