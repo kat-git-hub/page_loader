@@ -9,6 +9,6 @@ def parse_args():
                         default=os.getcwd(),
                         help='set path to download folder. '
                         'Downloading to current directory by default')
-    parser.add_argument('<url>', help='specify URL')
+    parser.add_argument('url', help='specify URL')
     args = parser.parse_args()
     return args

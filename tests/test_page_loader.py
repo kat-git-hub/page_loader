@@ -16,3 +16,6 @@ def test_download(requests_mock):
         file = download('https://ru.hexlet.io/courses', temp_folder)
         #with open(file) as fil:
         assert 'data' == requests.get('https://ru.hexlet.io/courses').text
+
+def test_update_links():
+    pass
