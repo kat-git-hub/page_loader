@@ -1,9 +1,9 @@
+from requests.models import Response
 from page_loader.names import rename_filename, get_folder_name
 import requests
 import os
-from bs4 import BeautifulSoup as bs
+from page_loader.resources import update_links
 from pathlib import Path
-from urllib.parse import urlparse, urljoin
 
 
 
@@ -11,63 +11,48 @@ from urllib.parse import urlparse, urljoin
     #ParseResult(scheme='https', netloc='en.wikipedia.org', path='', params='', query='', #fragment='')
     #['https://en.wikipedia.org/static/images/footer/wikimedia-button.png
     # path = static/images/footer/wikimedia-button.png
-TAGS = {
-    'img': 'src',
-    'script': 'src',
-    'link': 'href'
-}
+
 
 def download_page():
     pass
 
 
-def download(url, path):
-    filename = rename_filename(url)  #  en-wiki-org.html
-    file_path = os.path.join(path, filename) # g/en-wiki-org.html
-    if not os.path.exists(path): # create g/
-        os.makedirs(path)
-    r = requests.get(url, stream=True)
+def download(original_url, path):
+    filename = rename_filename(original_url)
+    name_dir = get_folder_name(original_url)
+    local_path = os.path.abspath(path)
+    print(local_path)
+    path_html = os.path.join(local_path, filename)
+    path_resources = os.path.join(local_path, name_dir)
+    if not os.path.exists(path_resources):
+        os.makedirs(path_resources)
+    r = requests.get(original_url, stream=True)
     if r.status_code == 200:
-        with open(file_path, 'wb') as f:
+        with open(path_html, 'wb') as f:
             for chunk in r.iter_content(chunk_size=1024 * 8):
                 if chunk:
                     f.write(chunk)
                     f.flush()
                     os.fsync(f.fileno())
-        return os.path.abspath(file_path), r
-    else:
-        print("Download failed: status code {}\n{}"
-              .format(r.status_code, r.text))
+        #return os.path.abspath(file_path), r
+    #else:
+    #    print("Download failed: status code {}\n{}"
+    #          .format(r.status_code, r.text))
+    #if not os.path.exists(path_resources):
+    #    Path(path_resources).mkdir
+    download_resources(original_url, path_resources, name_dir)
 
 
-def update_links(url, path):
-    souped = bs(requests.get(url).content, "html.parser")
-    urls = []
-    #for tag, attr in TAGS.items():
-    for tag in souped.find_all(TAGS.keys()):
-        attr_val = tag.get(TAGS[tag.name])
-        if not attr_val:
-            continue
-        # make the URL absolute by joining domain with the URL that is just extracted
-        link = urljoin(url, attr_val)
-        if urlparse(link).netloc != urlparse(url).netloc:
-            continue
 
-        new_filename = rename_filename(link)
-        urls.append({
-             
-            'url': link,
-            'filename': new_filename,
-            
-        })
-        tag[TAGS[tag.name]] = Path(path) / new_filename
-    return urls, souped.prettify("utf-8")
-
-
-def download_images(url):
-    images = update_links(url)
-    
-    image_dir = get_folder_name(url)
-    for image in images:
-        download(image, image_dir)
+def download_resources(original_url, path, local_dir):
+    #local_dir = get_folder_name(original_url)
+    #if not os.path.exists(local_dir):
+    #    os.makedirs(local_dir)
+    response = requests.get(original_url, stream=True)
+    urls, pretty_html = update_links(response.content, original_url, local_dir)
+    #print(urls)
+    for item in urls:
+        path_to_file = str(Path(path) / item['filename'])
+        with open(path_to_file, 'wb') as f:
+            f.write(pretty_html)
 
