@@ -1,5 +1,6 @@
+from os import replace
 from bs4 import BeautifulSoup as bs
-from page_loader.names import rename_filename, get_folder_name
+from page_loader.names import rename_filename
 import requests
 from urllib.parse import urlparse, urljoin
 import requests
@@ -16,6 +17,7 @@ TAGS = {
 def update_links(html, url, path):
     souped = bs(html, "html.parser")
     urls = []
+    #new_url = rename_filename(url)
     #for tag, attr in TAGS.items():
     for tag in souped.find_all(TAGS.keys()):
         attr_val = tag.get(TAGS[tag.name])
@@ -35,5 +37,3 @@ def update_links(html, url, path):
         })
         tag[TAGS[tag.name]] = Path(path) / new_filename
     return urls, souped.prettify("utf-8")
-
-
