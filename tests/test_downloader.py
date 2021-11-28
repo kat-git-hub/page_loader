@@ -11,27 +11,10 @@ from pathlib import Path
 URL = 'https://ru.hexlet.io/courses'
 MOCKED_SITE = open('tests/fixtures/html_before.html').read()
 
-MOCKED_LINKS = ["https://ru.hexlet.io/courses/assets/application.css",
-                "https://ru.hexlet.io/courses/assets/professions/nodejs.png",
-                "https://ru.hexlet.io/packs/js/runtime.js"]
-EXPECTED_SITE = open('tests/fixtures/html_after.html').read()
 
 path = 'tests/fixtures/'
 
 # удалить мусор /var/folders/8g/
-
-#def test_download():
-#    with TemporaryDirectory() as tmp_dir:
-#        with requests_mock.Mocker() as m:
-#            m.get(URL, text=MOCKED_SITE)
-#            for link in MOCKED_LINKS:
-#                m.get(link, text='ссылки для скачивания ')
-#            filename = download(URL, tmp_dir)
-#            #result_path = os.path.join(tmp_dir, filename)
-#        with open(filename) as f:         
-#            exp = BeautifulSoup(EXPECTED_SITE, "html.parser")
-#            assert f.read() == exp.prettify('utf-8')
-
 def test_download():
     with TemporaryDirectory() as tmp_dir:
         with requests_mock.Mocker() as m:
