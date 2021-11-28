@@ -17,9 +17,9 @@ TAGS = {
 def update_links(html, url, path):
     souped = bs(html, "html.parser")
     urls = []
-    #new_url = rename_filename(url)
-    #for tag, attr in TAGS.items():
+    ##############
     for tag in souped.find_all(TAGS.keys()):
+        ########################
         attr_val = tag.get(TAGS[tag.name])
         if not attr_val:
             continue
@@ -36,4 +36,4 @@ def update_links(html, url, path):
             
         })
         tag[TAGS[tag.name]] = Path(path) / new_filename
-    return urls, souped.prettify("utf-8")
+    return urls, souped.prettify('utf-8')
