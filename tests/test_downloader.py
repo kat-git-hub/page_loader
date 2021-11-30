@@ -15,6 +15,7 @@ MOCKED_SITE = open('tests/fixtures/html_before.html').read()
 path = 'tests/fixtures/'
 
 # удалить мусор /var/folders/8g/
+# правильно ли формируются локальные ссылки
 def test_download():
     with TemporaryDirectory() as tmp_dir:
         with requests_mock.Mocker() as m:
