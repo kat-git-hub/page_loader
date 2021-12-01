@@ -17,9 +17,7 @@ TAGS = {
 def update_links(html, url, path):
     souped = bs(html, "html.parser")
     urls = []
-    ##############
     for tag in souped.find_all(TAGS.keys()):
-        ########################
         attr_val = tag.get(TAGS[tag.name])
         if not attr_val:
             continue
