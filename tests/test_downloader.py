@@ -2,7 +2,7 @@ import pytest
 import os
 import requests_mock
 from tempfile import TemporaryDirectory
-#import requests
+import requests
 from requests.exceptions import HTTPError
 from bs4 import BeautifulSoup
 from page_loader.downloader import download
@@ -28,9 +28,18 @@ def test_download():
 def test_valid_url():
     pass
 
-def test_network_error():
+#def test_404_error():
+#    with TemporaryDirectory() as tmp_dir:
+#        with pytest.raises(HTTPError) as excinfo:
+#            url = 'https://www.google.com/error'
+#            download(url, tmp_dir)
+#        assert '404 Client Error: Not Found for url' in str(excinfo.value)
+        #assert str(excinfo.value) == 'It was an error, my Lord'
+
+#@pytest.mark.xfail(raises=HTTPError)
+def test_404_error():
     with TemporaryDirectory() as tmp_dir:
         with pytest.raises(HTTPError) as excinfo:
             url = 'https://www.google.com/error'
             download(url, tmp_dir)
-        assert '404 Client Error' in str(excinfo.value)
+        assert '404 Client Error: Not Found for url' in str(excinfo.value)
