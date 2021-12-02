@@ -6,6 +6,7 @@ import requests
 from requests.exceptions import HTTPError
 from bs4 import BeautifulSoup
 from page_loader.downloader import download
+from page_loader.resources import update_links
 from pathlib import Path
 
 URL = 'https://ru.hexlet.io/courses'
@@ -25,21 +26,25 @@ def test_download():
                 assert '123\n' == f.read()
 
 
-def test_valid_url():
-    pass
+def test_403_error():
+    with TemporaryDirectory() as tmp_dir:
+        with pytest.raises(HTTPError) as excinfo:
+            url = 'https://en.wikipediaa.com/'
+            download(url, tmp_dir)
+        assert '403 Client Error: Forbidden for url' in str(excinfo.value)
 
-#def test_404_error():
-#    with TemporaryDirectory() as tmp_dir:
-#        with pytest.raises(HTTPError) as excinfo:
-#            url = 'https://www.google.com/error'
-#            download(url, tmp_dir)
-#        assert '404 Client Error: Not Found for url' in str(excinfo.value)
-        #assert str(excinfo.value) == 'It was an error, my Lord'
 
-#@pytest.mark.xfail(raises=HTTPError)
 def test_404_error():
     with TemporaryDirectory() as tmp_dir:
         with pytest.raises(HTTPError) as excinfo:
             url = 'https://www.google.com/error'
             download(url, tmp_dir)
         assert '404 Client Error: Not Found for url' in str(excinfo.value)
+
+
+def test_access_error(requests_mock):
+    requests_mock.get('URL')
+    wrong_path = '/non-existent_path'
+    with pytest.raises(OSError):
+        assert download('URL', wrong_path)
+
