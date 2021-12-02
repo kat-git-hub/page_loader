@@ -27,7 +27,9 @@ def download(original_url, path=''):
     _, html = update_links(get_response(original_url).content, original_url, local_path)
     make_save(path_html, html)  
     download_resources(original_url, path)  
+    logger.info('Done.')
     return path_html   
+
 
 
 def download_resources(original_url, local_dir):
@@ -44,11 +46,15 @@ def download_resources(original_url, local_dir):
 
 
 def make_save(path_to_file, data):
-    with open(path_to_file, 'wb') as f:
-        logger.info(f'Save to the {path_to_file}')
-        f.write(data)
+    try:
+        with open(path_to_file, 'wb') as f:
+            logger.info(f'Save to the {path_to_file}')
+            f.write(data)
+    except PermissionError:
+        logger.error(f'Permission denied')
+        raise
 
-
+#OSError
 def get_response(url):
     #try:
     response = requests.get(url, stream=True)
@@ -63,5 +69,9 @@ def get_response(url):
 def make_folder(url, path):
     folder = Path(path) / Path(get_folder_name(url))
     if not os.path.exists(folder):
+        #try:
         os.makedirs(folder)
+        #except OSError as e:
+        #    logger.error(e)
+        #    raise
     return folder
