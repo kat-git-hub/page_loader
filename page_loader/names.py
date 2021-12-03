@@ -2,6 +2,7 @@ import os
 from urllib.parse import urlparse
 import re
 
+
 def rename_filename(input_url):
     parse = urlparse(input_url)
     rename_netloc = replace_symbols(parse.netloc)
@@ -9,11 +10,12 @@ def rename_filename(input_url):
     without_schema = parse.netloc + parse.path
     root, ext = os.path.splitext(without_schema)
     filename = replace_symbols(root)
-    if parse.path == '' :
+    if parse.path == '':
         return rename_netloc + rename_path + str('.html')
     if ext == '':
         ext = '.html'
     return filename + ext
+
 
 def replace_symbols(path):
     valid_filename_parts = re.findall(r'[^\W]+', path)
