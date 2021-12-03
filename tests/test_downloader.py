@@ -1,13 +1,9 @@
 import pytest
-import os
 import requests_mock
 from tempfile import TemporaryDirectory
-import requests
 from requests.exceptions import HTTPError
-from bs4 import BeautifulSoup
 from page_loader.downloader import download
-from page_loader.resources import update_links
-from pathlib import Path
+
 
 URL = 'https://ru.hexlet.io/courses'
 MOCKED_SITE = open('tests/fixtures/html_before.html').read()
@@ -15,8 +11,6 @@ MOCKED_SITE = open('tests/fixtures/html_before.html').read()
 
 path = 'tests/fixtures/'
 
-# удалить мусор /var/folders/8g/
-# правильно ли формируются локальные ссылки
 def test_download():
     with TemporaryDirectory() as tmp_dir:
         with requests_mock.Mocker() as m:
@@ -47,4 +41,3 @@ def test_access_error(requests_mock):
     wrong_path = '/non-existent_path'
     with pytest.raises(OSError):
         assert download('URL', wrong_path)
-
