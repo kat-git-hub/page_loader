@@ -1,0 +1,33 @@
+.post-image {
+    display: block;
+    border-bottom: none !important;
+}
+
+    .post-image img {
+        width: 100%;
+    }
+
+    .post-image_size_small {
+        width: 300px;
+        clear: both;
+    }
+
+a.block-media {
+    border-bottom: none;
+}
+
+    a.block-media__body {
+        margin-left: 0;
+    }
+
+    a.block-media > img {
+        width: 100%;
+    }
+
+    .block-media__3-full > a {
+        border-bottom: none;
+    }
+
+    .block-media__3-full > a > img {
+        width: 33.3333%;
+    }
