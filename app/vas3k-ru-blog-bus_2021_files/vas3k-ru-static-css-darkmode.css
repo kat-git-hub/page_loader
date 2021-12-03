@@ -1,0 +1,48 @@
+.dark-mode {
+    background-color: #191919;
+    color: #d7d7d8;
+}
+
+.dark-mode .contacts-row a,
+.dark-mode .contacts-row span,
+.dark-mode .projects-block {
+    color: #d7d7d8;
+}
+
+.dark-mode .story,
+.dark-mode .projects-block img {
+    box-shadow: 10px 10px 30px #333;
+}
+
+    .dark-mode .story .story__title,
+    .dark-mode .story .story__subtitle,
+    .dark-mode .story_orientation_vertical .story__info {
+        background-color: #333;
+        color: #FFF;
+    }
+
+    .dark-mode .story:hover .story__title,
+    .dark-mode .story:hover .story__subtitle {
+        background-color: #FFF;
+        color: #333;
+    }
+
+.dark-mode .post,
+.dark-mode h1,
+.dark-mode h1 a,
+.dark-mode h2,
+.dark-mode h2 a,
+.dark-mode h3,
+.dark-mode h3 a {
+    color: #d7d7d8 !important;
+}
+
+.dark-mode .block-text,
+.dark-mode .post-related__title span {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .block-extra,
+.dark-mode .profile-extra-block-example {
+    background-color: rgba(228, 71, 83, 0.5);
+}
