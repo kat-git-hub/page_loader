@@ -1,15 +1,18 @@
 import pytest
 import requests_mock
+import os
+from page_loader.names import rename_filename
 from tempfile import TemporaryDirectory
 from requests.exceptions import HTTPError
-from page_loader.downloader import download
+from page_loader.downloader import download, download_resources
 
 
 URL = 'https://ru.hexlet.io/courses'
-MOCKED_SITE = open('tests/fixtures/html_before.html').read()
+MOCKED_SITE = open('tests/fixtures/html_before.html').read
+EXPECTED_LINKS = ["ru-hexlet-io-courses_files/ru-hexlet-io-courses.html",
+                "ru-hexlet-io-courses_files/ru-hexlet-io-assets-professions-nodejs.png",
+                "ru-hexlet-io-courses_files/ru-hexlet-io-packs-js-runtime.js"]
 
-
-path = 'tests/fixtures/'
 
 def test_download():
     with TemporaryDirectory() as tmp_dir:
@@ -41,3 +44,10 @@ def test_access_error(requests_mock):
     wrong_path = '/non-existent_path'
     with pytest.raises(OSError):
         assert download('URL', wrong_path)
+
+def test_load_files():
+    with TemporaryDirectory() as temp:
+        link_for_test = '/assets/professions/nodejs.png'
+        path = os.path.join(temp, rename_filename(link_for_test))
+        download([(link_for_test, path)])
+        assert os.path.isfile(path)

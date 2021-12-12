@@ -6,8 +6,8 @@ from page_loader.resources import update_links
 import logging.config
 import logging
 from page_loader.logging import LOGGING_CONFIG
-from pathlib import Path
 from progress.bar import FillingSquaresBar
+from page_loader.storage import make_folder, make_save
 
 
 logging.config.dictConfig(LOGGING_CONFIG)
@@ -43,22 +43,10 @@ def download_resources(original_url, local_dir):
         make_save(local_path, url)
         bar.next()
     bar.finish()
-
-
-def make_save(path_to_file, data):
-    with open(path_to_file, 'wb') as f:
-        logger.info(f'Save to the {path_to_file}')
-        f.write(data)
+    #return local_path
 
 
 def get_response(url):
     response = requests.get(url, stream=True)
     response.raise_for_status()
     return response
-
-
-def make_folder(url, path):
-    folder = Path(path) / Path(get_folder_name(url))
-    if not os.path.exists(folder):
-        os.makedirs(folder)
-    return folder
