@@ -43,7 +43,6 @@ def download_resources(original_url, local_dir):
         make_save(local_path, url)
         bar.next()
     bar.finish()
-    #return local_path
 
 
 def get_response(url):
