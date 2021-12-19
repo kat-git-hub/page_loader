@@ -3,7 +3,7 @@ import requests_mock
 import os
 from tempfile import TemporaryDirectory
 from requests.exceptions import HTTPError
-from page_loader.downloader import download
+from page_loader.downloader import download, Error
 
 
 URL = 'https://en.wikipedia.org/wiki/Python_(programming_language)'
@@ -20,7 +20,7 @@ def test_download():
 
 def test_403_error():
     with TemporaryDirectory() as tmp_dir:
-        with pytest.raises(HTTPError) as excinfo:
+        with pytest.raises(Error) as excinfo:
             url = 'https://en.wikipediaa.com/'
             download(url, tmp_dir)
         assert '403 Client Error: Forbidden for url' in str(excinfo.value)
@@ -28,7 +28,7 @@ def test_403_error():
 
 def test_404_error():
     with TemporaryDirectory() as tmp_dir:
-        with pytest.raises(HTTPError) as excinfo:
+        with pytest.raises(Error) as excinfo:
             url = 'https://www.google.com/error'
             download(url, tmp_dir)
         assert '404 Client Error: Not Found for url' in str(excinfo.value)
@@ -37,7 +37,7 @@ def test_404_error():
 def test_access_error(requests_mock):
     requests_mock.get('URL')
     wrong_path = '/non-existent_path'
-    with pytest.raises(OSError):
+    with pytest.raises(Error):
         assert download('URL', wrong_path)
 
 

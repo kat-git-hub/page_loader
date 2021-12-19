@@ -1,6 +1,5 @@
 import os
 from urllib.parse import urlparse
-import re
 
 
 def rename_filename(input_url):
@@ -18,9 +17,8 @@ def rename_filename(input_url):
 
 
 def replace_symbols(path):
-    valid_filename_parts = re.findall(r'[^\W]+', path)
-    final_filename = '-'.join(valid_filename_parts)
-    return final_filename
+    new_filename = path.replace('.', '-').replace('/', '-')
+    return new_filename
 
 
 def get_folder_name(url):

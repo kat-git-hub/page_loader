@@ -16,6 +16,10 @@ def make_folder(url, path):
 
 
 def make_save(path_to_file, data):
-    with open(path_to_file, 'wb') as f:
-        logger.info(f'Save to the {path_to_file}')
-        f.write(data)
+    try:
+        with open(path_to_file, 'wb') as f:
+            logger.info(f'Save to the {path_to_file}')
+            f.write(data)
+    except PermissionError:
+        logger.error('Permission denied')
+        raise
