@@ -3,6 +3,7 @@ import logging
 import os
 from pathlib import Path
 from page_loader.names import get_folder_name
+import sys
 
 
 logging.config.dictConfig(LOGGING_CONFIG)
@@ -21,6 +22,6 @@ def make_save(path_to_file, data):
         with open(path_to_file, 'wb') as f:
             logger.info(f'Save to the {path_to_file}')
             return f.write(data)
-    except PermissionError as error:
-        logger.warning('Permission denied')
-        raise PermissionError(f'{error}: {path_to_file}') from error
+    except IOError as error:
+        logger.warning(f'Incorrect folder. Error:{error}')
+        sys.exit()
