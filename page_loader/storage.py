@@ -22,6 +22,6 @@ def make_save(path_to_file, data):
         with open(path_to_file, 'wb') as f:
             logger.info(f'Save to the {path_to_file}')
             return f.write(data)
-    except IOError as error:
+    except OSError as error:
         logger.warning(f'Incorrect folder. Error:{error}')
         sys.exit()
