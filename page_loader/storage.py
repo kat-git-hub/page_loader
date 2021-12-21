@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 from page_loader.names import get_folder_name
 
+
 logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger('page_loader')
 
@@ -19,7 +20,7 @@ def make_save(path_to_file, data):
     try:
         with open(path_to_file, 'wb') as f:
             logger.info(f'Save to the {path_to_file}')
-            f.write(data)
-    except PermissionError:
-        logger.error('Permission denied')
-        raise
+            return f.write(data)
+    except PermissionError as error:
+        logger.warning('Permission denied')
+        raise PermissionError(f'{error}: {path_to_file}') from error

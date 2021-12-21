@@ -17,10 +17,6 @@ class AppInternalError(Exception):
     pass
 
 
-class Error(AppInternalError):
-    pass
-
-
 def download(original_url, path=''):
     logger.info(f'Download {original_url}...')
     try:
@@ -62,4 +58,4 @@ def get_response(url):
             requests.exceptions.ConnectionError,
             requests.exceptions.MissingSchema) as error:
         logger.warning(error)
-        raise Error(f'{error}: {url}') from error
+        raise AppInternalError(f'{error}: {url}') from error

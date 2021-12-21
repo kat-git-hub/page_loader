@@ -3,7 +3,7 @@ import requests_mock
 import os
 from tempfile import TemporaryDirectory
 from requests.exceptions import HTTPError
-from page_loader.downloader import download, Error
+from page_loader.downloader import download, AppInternalError as Error
 
 
 URL = 'https://en.wikipedia.org/wiki/Python_(programming_language)'
