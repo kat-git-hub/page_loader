@@ -3,7 +3,6 @@ import logging
 import os
 from pathlib import Path
 from page_loader.names import get_folder_name
-import sys
 
 
 logging.config.dictConfig(LOGGING_CONFIG)
@@ -24,4 +23,4 @@ def make_save(path_to_file, data):
             return f.write(data)
     except OSError as error:
         logger.warning(f'Incorrect folder. Error:{error}')
-        sys.exit()
+        raise OSError(f'{error}') from error

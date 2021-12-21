@@ -47,3 +47,10 @@ def test_is_exist_file():
         folder_with_files = download(url, tmp_dir)
         assert os.path.exists(folder_with_files)
         assert os.path.isfile(folder_with_files)
+
+
+def test_storage_errors(requests_mock):
+    requests_mock.get(URL)
+    root_dir_path = '/sys'
+    with pytest.raises(Exception):
+        assert download(URL, root_dir_path)
