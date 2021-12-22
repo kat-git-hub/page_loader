@@ -12,10 +12,13 @@ logger = logging.getLogger('page_loader')
 def make_folder(url, path):
     folder = Path(path) / Path(get_folder_name(url))
     if not os.path.exists(folder):
-        os.makedirs(folder)
-    return folder
+        os.mkdir(folder)
+        logger.info(f'Create folder: {folder}')
+        return folder
+    if not os.access(folder, os.W_OK):
+        raise OSError('LOLOLOLOL')
 
-
+   
 def make_save(path_to_file, data):
     try:
         with open(path_to_file, 'wb') as f:

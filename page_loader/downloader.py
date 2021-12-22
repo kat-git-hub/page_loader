@@ -20,7 +20,7 @@ class AppInternalError(Exception):
 def download(original_url, path=''):
     logger.info(f'Download {original_url}...')
     try:
-        os.makedirs(path)
+        os.mkdir(path)
         logger.info(f'Create folder: {path}')
     except OSError:
         logger.info(f'{path} is already exist')
