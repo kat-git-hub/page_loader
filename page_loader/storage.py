@@ -3,6 +3,7 @@ import logging
 import os
 from pathlib import Path
 from page_loader.names import get_folder_name
+from page_loader.exceptions import Error
 
 
 logging.config.dictConfig(LOGGING_CONFIG)
@@ -16,7 +17,7 @@ def make_folder(url, path):
         logger.info(f'Create folder: {folder}')
         return folder
     if not os.access(folder, os.W_OK):
-        raise OSError('LOLOLOLOL')
+        raise OSError('Access denied.')
 
    
 def make_save(path_to_file, data):
@@ -26,4 +27,4 @@ def make_save(path_to_file, data):
             return f.write(data)
     except OSError as error:
         logger.warning(f'Incorrect folder. Error:{error}')
-        raise OSError(f'{error}') from error
+        raise Error(f'{error}') from error

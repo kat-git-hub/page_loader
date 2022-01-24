@@ -1,4 +1,5 @@
-from page_loader.downloader import download, AppInternalError
+from page_loader.downloader import download
+from page_loader.exceptions import AppInternalError
 from page_loader.cli import parse_args
 from page_loader.logging import LOGGING_CONFIG
 import logging.config

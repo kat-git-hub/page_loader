@@ -3,7 +3,8 @@ import requests_mock
 import os
 from tempfile import TemporaryDirectory
 from requests.exceptions import HTTPError
-from page_loader.downloader import download, AppInternalError as Error
+from page_loader.downloader import download
+from page_loader.exceptions import Error
 
 
 URL = 'https://en.wikipedia.org/wiki/Python_(programming_language)'
@@ -35,10 +36,14 @@ def test_404_error():
 
 
 def test_access_error(requests_mock):
-    requests_mock.get('URL')
-    wrong_path = '/non-existent_path'
-    with pytest.raises(Error):
-        assert download('URL', wrong_path)
+    requests_mock.get(URL)
+    #wrong_path = '/usr/local/lib'
+    wrong_path = '/bin'
+    with pytest.raises(OSError):
+        assert download(URL, wrong_path)
+    #assert 'Operation not permitted' in str(e.value)
+
+ 
 
 
 def test_is_exist_file():
