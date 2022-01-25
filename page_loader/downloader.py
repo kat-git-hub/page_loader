@@ -57,9 +57,9 @@ def get_response(url):
     try:
         response = requests.get(url, stream=True)
         response.raise_for_status()
-        #for chunk in response.iter_content(CHUNK_SIZE):
-        return response
-            #return chunk
+        for chunk in response.iter_content(CHUNK_SIZE):
+        #return response
+            return chunk
     except (requests.exceptions.HTTPError,
             requests.exceptions.ConnectionError,
             requests.exceptions.MissingSchema) as error:
