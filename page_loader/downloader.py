@@ -28,7 +28,7 @@ def download(original_url, path=''):
     
     path_html = os.path.join(path, rename_filename(original_url))
     local_path = os.path.join(path, get_folder_name(original_url))
-    logger.info(f'Downloading  from {original_url} to {path_html}...')
+    logger.info(f'Downloading  from {original_url} to {path_html}')
     urls, html = update_links(get_response(original_url).text,
                               original_url, local_path)
     make_save(path_html, html)
