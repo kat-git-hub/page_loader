@@ -22,14 +22,16 @@ CHUNK_SIZE = 1024
 
 def download(original_url, path=''):
     logger.info(f'Download {original_url}...')
-    try:
-        os.mkdir(path)
-        logger.info(f'Create folder: {path}')
+
+    if not os.path.exists(path):
+        raise FileNotFoundError('No such file or directory')
+       # os.mkdir(path)
+        #logger.info(f'Create folder: {path}')
     #except OSError as error:
-    except Exception:
+    #except Exception:
         #if not os.path.exists('
-        logger.info(f'{path} is already exist')
-        raise
+    #    logger.info(f'{path} is already exist')
+    #    raise
         #raise Exception(f'{path} not exist or already exist') from error
         #pass
     path_html = os.path.join(path, rename_filename(original_url))
