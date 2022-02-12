@@ -17,7 +17,7 @@ logger = logging.getLogger('page_loader')
 
 
 
-CHUNK_SIZE = 128
+CHUNK_SIZE = 1024
 
 
 def download(original_url, path=''):
@@ -31,7 +31,7 @@ def download(original_url, path=''):
         pass
     path_html = os.path.join(path, rename_filename(original_url))
     local_path = os.path.join(path, get_folder_name(original_url))
-    urls, html = update_links(get_response(original_url),
+    urls, html = update_links(get_response(original_url).text,
                               original_url, local_path)
     make_save(path_html, html)
     download_resources(original_url, path, urls)
@@ -46,7 +46,7 @@ def download_resources(original_url, local_dir, urls):
     logger.info('Download resources...')
     bar = FillingSquaresBar('Loading', max=len(urls))
     for item in urls:
-        url = get_response(item['url'])
+        url = get_response(item['url']).content
         local_path = os.path.join(root_dir, str(item['filename']))
         make_save(local_path, url)
         bar.next()
@@ -57,9 +57,9 @@ def get_response(url):
     try:
         response = requests.get(url, stream=True)
         response.raise_for_status()
-        for chunk in response.iter_content(CHUNK_SIZE):
-        #return response
-            return chunk
+        #for chunk in response.iter_content(CHUNK_SIZE):
+        return response
+          #  return chunk
     except (requests.exceptions.HTTPError,
             requests.exceptions.ConnectionError,
             requests.exceptions.MissingSchema) as error:
