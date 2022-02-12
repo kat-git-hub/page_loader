@@ -25,15 +25,7 @@ def download(original_url, path=''):
 
     if not os.path.exists(path):
         raise FileNotFoundError('No such file or directory')
-       # os.mkdir(path)
-        #logger.info(f'Create folder: {path}')
-    #except OSError as error:
-    #except Exception:
-        #if not os.path.exists('
-    #    logger.info(f'{path} is already exist')
-    #    raise
-        #raise Exception(f'{path} not exist or already exist') from error
-        #pass
+    
     path_html = os.path.join(path, rename_filename(original_url))
     local_path = os.path.join(path, get_folder_name(original_url))
     urls, html = update_links(get_response(original_url).text,
@@ -53,6 +45,7 @@ def download_resources(original_url, local_dir, urls):
     for item in urls:
         url = get_response(item['url']).content
         local_path = os.path.join(root_dir, str(item['filename']))
+        #local_path = str(item['filename'])
         make_save(local_path, url)
         bar.next()
     bar.finish()
