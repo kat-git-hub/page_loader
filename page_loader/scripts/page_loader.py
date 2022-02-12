@@ -17,7 +17,7 @@ def main():
         download(url, output)
     except AppInternalError as e:
         logger.error(e)
-        sys.exit()
+        sys.exit(1)
 
 
 if __name__ == '__main__':
