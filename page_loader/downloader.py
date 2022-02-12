@@ -26,8 +26,9 @@ def download(original_url, path=''):
         os.mkdir(path)
         logger.info(f'Create folder: {path}')
     except OSError as error:
+        #if not os.path.exists('
         #logger.info(f'{path} is already exist')
-        raise Error(f'{path} is already exist') from error
+        raise Exception(f'{path} not exist or already exist') from error
         #pass
     path_html = os.path.join(path, rename_filename(original_url))
     local_path = os.path.join(path, get_folder_name(original_url))
