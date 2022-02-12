@@ -1,7 +1,0 @@
-<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-<ShortName>Поиск анекдотов</ShortName>
-<Description>Поиск анекдотов, историй, афоризмов на сайте www.anekdot.ru</Description>
-<InputEncoding>utf-8</InputEncoding>
-<Image width="16" height="16" type="image/x-icon">http://www.anekdot.ru/favicon.ico</Image>
-<Url type="text/html" method="GET" template="http://www.anekdot.ru/search/?query={searchTerms}&amp;rubrika=j&amp;from=os"/>
-</OpenSearchDescription>
