@@ -2,7 +2,6 @@ import pytest
 import requests_mock
 import os
 from tempfile import TemporaryDirectory
-from requests.exceptions import HTTPError
 from page_loader.downloader import download
 from page_loader.exceptions import Error
 
@@ -13,8 +12,9 @@ URL = 'https://en.wikipedia.org/wiki/Python_(programming_language)'
 def test_download():
     with TemporaryDirectory() as tmp_dir:
         with requests_mock.Mocker() as m:
-            m.get(URL, text ='123')
+            m.get(URL, text='123')
             file_path = download(URL, tmp_dir)
+            assert os.path.isfile(file_path)
             with open(file_path) as f:
                 assert '123\n' == f.read()
 
@@ -37,13 +37,9 @@ def test_404_error():
 
 def test_access_error(requests_mock):
     requests_mock.get(URL)
-    #wrong_path = '/usr/local/lib'
-    wrong_path = '/bin'
-    with pytest.raises(OSError):
+    wrong_path = '/usr/local/lib'
+    with pytest.raises(Error):
         assert download(URL, wrong_path)
-    #assert 'Operation not permitted' in str(e.value)
-
- 
 
 
 def test_is_exist_file():
@@ -52,13 +48,3 @@ def test_is_exist_file():
         folder_with_files = download(url, tmp_dir)
         assert os.path.exists(folder_with_files)
         assert os.path.isfile(folder_with_files)
-
-
-#def test_storage_errors(requests_mock):
-#    requests_mock.get(URL)
-#    root_dir_path = '/sys'
-#    with pytest.raises(Exception):
-#        assert download(URL, root_dir_path)
-#    not_exists_path = get_fixture_path('notExistsPath')
-#    with pytest.raises(Exception):
-#        assert download(URL, not_exists_path)

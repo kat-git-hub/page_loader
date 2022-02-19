@@ -19,7 +19,7 @@ def make_folder(url, path):
     if not os.access(folder, os.W_OK):
         raise OSError('Access denied.')
 
-   
+
 def make_save(path_to_file, data):
     try:
         with open(path_to_file, 'wb') as f:
