@@ -10,7 +10,8 @@ LOGGING_CONFIG = {
         'default': {
             'level': 'DEBUG',
             'formatter': 'standard',
-            'class': 'logging.StreamHandler(sys.stdout)',
+            'class': 'logging.StreamHandler',
+            'stream': 'ext://sys.stdout'
         },
     },
     'loggers': {
