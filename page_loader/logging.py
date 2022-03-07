@@ -11,17 +11,22 @@ LOGGING_CONFIG = {
             'level': 'DEBUG',
             'formatter': 'standard',
             'class': 'logging.StreamHandler',
-            #'stream': 'ext://sys.stdout'
+            'stream': 'ext://sys.stdout'
         },
+        'errors': {
+            'class': 'logging.StreamHandler',
+            'level': 'DEBUG',
+            'formatter': 'standard'
+        }
     },
     'loggers': {
         '': {
-            'handlers': ['default'],
+            'handlers': ['default', 'errors'],
             'level': 'DEBUG',
             'propagate': False
         },
         'page_loader': {
-            'handlers': ['default'],
+            'handlers': ['default', 'errors'],
             'level': 'DEBUG',
             'propagate': False
         },
