@@ -10,7 +10,7 @@ LOGGING_CONFIG = {
         'default': {
             'level': 'DEBUG',
             'formatter': 'standard',
-            'class': 'logging.StreamHandler',
+            'class': 'logging.StreamHandler(sys.stderr)',
         },
     },
     'loggers': {
