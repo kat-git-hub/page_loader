@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+ xmlns:blogChannel="http://backend.userland.com/blogChannelModule"
+>
+<channel>
+<title>Свежие анекдоты без политики</title>
+<link>https://www.anekdot.ru/</link>
+<description>Анекдоты из России - самые смешные анекдоты, истории, афоризмы и фразы, стишки, карикатуры и другой юмор. Выходят с 8 ноября 1995 года. Составитель Дима Вернер</description>
+<language>ru</language>
+<copyright>Copyright 2022 ANEKDOT.RU</copyright>
+<managingEditor>verner@anekdot.ru (Dima Verner)</managingEditor>
+<webMaster>verner@anekdot.ru (Dima Verner)</webMaster>
+<pubDate>Sun, 06 Mar 2022 00:00:00 +0300</pubDate>
+<lastBuildDate>Mon, 07 Mar 2022 11:54:01 +0300</lastBuildDate>
+
+<image>
+<title>Анекдоты из России - Anekdot.ru</title>
+<url>https://www.anekdot.ru/i/logo-88-31.gif?rss</url>
+<link>https://www.anekdot.ru</link>
+<width>88</width>
+<height>31</height>
+<description>Анекдоты из России</description>
+</image>
+
+<item>
+<title>Анекдот №13 за 06 марта 2022</title>
+<link>https://www.anekdot.ru/release/anekdot/day/2022-03-06/#1304955</link>
+<pubDate>Sun, 06 Mar 2022 00:00:00 +0300</pubDate>
+<description><![CDATA[Объявление: Пассажирам трамвая требуется Жеглов, владеющий методами против Кости Сапрыкина.]]></description>
+<guid>https://www.anekdot.ru/id/1304955/</guid>
+<comments>https://www.anekdot.ru/id/1304955/</comments>
+</item>
+</channel>
+</rss>

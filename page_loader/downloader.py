@@ -18,7 +18,6 @@ CHUNK_SIZE = 1024
 
 
 def download(original_url, path=''):
-    #logger.info('Downloading ')
     if not os.path.exists(path):
         raise Error(f'Incorrect folder: {path}') from FileNotFoundError
     path_html = os.path.join(path, rename_filename(original_url))
@@ -26,11 +25,11 @@ def download(original_url, path=''):
     bar = Bar(f'Downloading  from {original_url} to {path_html}')
     urls, html = update_links(get_response(original_url).text,
                               original_url, local_path)
-    make_save(path_html, html)
-    download_resources(original_url, path, urls)
     bar.next()
     bar.finish()
-    #logger.info('Done')
+    make_save(path_html, html)
+    download_resources(original_url, path, urls)
+    logger.info('Done')
     return path_html
 
 
