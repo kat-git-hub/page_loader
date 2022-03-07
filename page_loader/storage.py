@@ -1,7 +1,6 @@
-from urllib.parse import urlparse
-from page_loader.logging import LOGGING_CONFIG
 import logging
 import os
+from page_loader.logging import LOGGING_CONFIG
 from page_loader.exceptions import Error
 
 

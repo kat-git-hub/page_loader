@@ -20,15 +20,9 @@ LOGGING_CONFIG = {
         }
     },
     'loggers': {
-        # '': {
-        #     'handlers': ['default', 'errors'],
-        #     'level': 'DEBUG',
-        #     #'propagate': False
-        # },
         'page_loader': {
             'handlers': ['default'],
             'level': 'DEBUG',
-            # 'propagate': False
         },
     }
 }

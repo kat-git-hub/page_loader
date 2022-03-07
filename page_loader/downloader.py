@@ -1,14 +1,14 @@
-from page_loader.names import rename_filename, get_folder_name
-import requests
 import os
-from pathlib import Path
-from page_loader.resources import update_links
-import logging.config
+import requests
 import logging
-from page_loader.logging import LOGGING_CONFIG
-from progress.bar import FillingSquaresBar
-from page_loader.storage import make_folder, make_save
+import logging.config
+from pathlib import Path
 from page_loader.exceptions import Error
+from progress.bar import FillingSquaresBar
+from page_loader.resources import update_links
+from page_loader.logging import LOGGING_CONFIG
+from page_loader.storage import make_folder, make_save
+from page_loader.names import rename_filename, get_folder_name
 
 
 logging.config.dictConfig(LOGGING_CONFIG)

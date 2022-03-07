@@ -1,6 +1,5 @@
 import os
 from urllib.parse import urlparse
-from pathlib import Path
 
 
 def rename_filename(input_url):
