@@ -31,6 +31,6 @@ optional arguments:
 
 ### 📺 **Demo**
 - How does it works
-[![asciicast](https://asciinema.org/a/YRIDcjJhotTlNN754nZCCtfgM.svg)](https://asciinema.org/a/YRIDcjJhotTlNN754nZCCtfgM)
+[![asciicast](https://asciinema.org/a/T2speLZ4ssAp1gB795HpZjWuS.svg)](https://asciinema.org/a/T2speLZ4ssAp1gB795HpZjWuS)
 
 ----
