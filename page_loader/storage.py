@@ -1,8 +1,7 @@
+from urllib.parse import urlparse
 from page_loader.logging import LOGGING_CONFIG
 import logging
 import os
-from pathlib import Path
-from page_loader.names import get_folder_name
 from page_loader.exceptions import Error
 
 
@@ -10,8 +9,7 @@ logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger('page_loader')
 
 
-def make_folder(url, path):
-    folder = Path(path) / Path(get_folder_name(url))
+def make_folder(folder):
     if not os.path.exists(folder):
         os.mkdir(folder)
         logger.info(f'Create folder: {folder}')

@@ -15,20 +15,20 @@ LOGGING_CONFIG = {
         },
         'errors': {
             'class': 'logging.StreamHandler',
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'formatter': 'standard'
         }
     },
     'loggers': {
-        '': {
-            'handlers': ['default', 'errors'],
-            'level': 'DEBUG',
-            'propagate': False
-        },
+        # '': {
+        #     'handlers': ['default', 'errors'],
+        #     'level': 'DEBUG',
+        #     #'propagate': False
+        # },
         'page_loader': {
-            'handlers': ['default', 'errors'],
+            'handlers': ['default'],
             'level': 'DEBUG',
-            'propagate': False
+            # 'propagate': False
         },
     }
 }

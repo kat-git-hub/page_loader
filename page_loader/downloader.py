@@ -1,6 +1,7 @@
 from page_loader.names import rename_filename, get_folder_name
 import requests
 import os
+from pathlib import Path
 from page_loader.resources import update_links
 import logging.config
 import logging
@@ -33,7 +34,8 @@ def download(original_url, path=''):
 
 def download_resources(original_url, local_dir, urls):
     logger.info(f'Saving to the {local_dir}')
-    root_dir = make_folder(original_url, local_dir)
+    dir_path = Path(local_dir) / Path(get_folder_name(original_url))
+    root_dir = make_folder(dir_path)
     logger.info(f'Create directory: {root_dir}')
     logger.info('Download resources...')
     bar = FillingSquaresBar('Loading', max=len(urls))
