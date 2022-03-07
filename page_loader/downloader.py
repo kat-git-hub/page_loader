@@ -22,11 +22,9 @@ def download(original_url, path=''):
         raise Error(f'Incorrect folder: {path}') from FileNotFoundError
     path_html = os.path.join(path, rename_filename(original_url))
     local_path = os.path.join(path, get_folder_name(original_url))
-    bar = Bar(f'Downloading  from {original_url} to {path_html}')
+    logger.info(f'Downloading  from {original_url} to {path_html}')
     urls, html = update_links(get_response(original_url).text,
                               original_url, local_path)
-    bar.next()
-    bar.finish()
     make_save(path_html, html)
     download_resources(original_url, path, urls)
     logger.info('Done')
