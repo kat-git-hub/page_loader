@@ -11,7 +11,7 @@ LOGGING_CONFIG = {
             'level': 'DEBUG',
             'formatter': 'standard',
             'class': 'logging.StreamHandler',
-            #'stream': 'ext://sys.stderr'
+            #'stream': 'ext://sys.stdout'
         },
     },
     'loggers': {
