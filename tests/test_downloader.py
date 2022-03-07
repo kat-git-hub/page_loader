@@ -6,18 +6,33 @@ from page_loader.downloader import download
 from page_loader.exceptions import Error
 
 
-URL = 'https://en.wikipedia.org/wiki/Python_(programming_language)'
+URL = 'https://ru.hexlet.io/courses'
+file_before = open('tests/fixtures/html_before.html').read()
+file_after = open('tests/fixtures/html_after.html').read()
+read_css = open('tests/fixtures/application.css').read()
+read_png = open('tests/fixtures/nodejs.png', 'rb').read()
+read_js = open('tests/fixtures/runtime.js').read()
 
 
 def test_download():
     with TemporaryDirectory() as tmp_dir:
         with requests_mock.Mocker() as m:
-            m.get(URL, text='123')
+            m.get(URL, text=file_before)
+            m.get('https://ru.hexlet.io/packs/js/runtime.js', text=read_js)
+            m.get('https://ru.hexlet.io/assets/application.css', text=read_css)
+            m.get('https://ru.hexlet.io/assets/professions/nodejs.png', content=read_png)
             file_path = download(URL, tmp_dir)
             assert os.path.isfile(file_path)
+            resources_path = os.path.join(tmp_dir, 'ru-hexlet-io-courses_files')
             with open(file_path) as f:
-                assert '123\n' == f.read()
-
+                assert f.read() == file_after
+            with open(os.path.join(resources_path, 'ru-hexlet-io-assets-application.css')) as f_css:
+                assert f_css.read() == read_css
+            d = os.path.join(resources_path, 'ru-hexlet-io-assets-professions-nodejs.png')
+            with open(d, 'rb') as f_png:
+                assert f_png.read() == read_png
+            with open(os.path.join(resources_path, 'ru-hexlet-io-packs-js-runtime.js')) as f_js:
+                assert f_js.read() == read_js   
 
 def test_403_error():
     with TemporaryDirectory() as tmp_dir:
