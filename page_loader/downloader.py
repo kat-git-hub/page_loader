@@ -18,7 +18,7 @@ CHUNK_SIZE = 1024
 
 
 def download(original_url, path=''):
-    #logger.info('Downloading..')
+    #logger.info('Downloading ')
     if not os.path.exists(path):
         raise Error(f'Incorrect folder: {path}') from FileNotFoundError
     path_html = os.path.join(path, rename_filename(original_url))
@@ -51,6 +51,7 @@ def download_resources(original_url, local_dir, urls):
 
 def get_response(url):
     try:
+        logger.info('Downloading {url}')
         response = requests.get(url, stream=True)
         response.raise_for_status()
         return response
