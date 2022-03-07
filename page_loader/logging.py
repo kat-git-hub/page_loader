@@ -10,15 +10,15 @@ LOGGING_CONFIG = {
         'default': {
             'level': 'DEBUG',
             'formatter': 'standard',
-            'class': 'logging.StreamHandler(sys.stderr)',
+            'class': 'logging.StreamHandler',
         },
     },
     'loggers': {
-        '': {  # root logger
-            'handlers': ['default'],
-            'level': 'DEBUG',
-            'propagate': False
-        },
+        #'': {
+        #    'handlers': ['default'],
+        #    'level': 'DEBUG',
+        #    'propagate': False
+        #},
         'page_loader': {
             'handlers': ['default'],
             'level': 'DEBUG',
