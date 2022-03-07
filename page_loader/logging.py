@@ -22,7 +22,7 @@ LOGGING_CONFIG = {
         'page_loader': {
             'handlers': ['default'],
             'level': 'DEBUG',
-            'propagate': False
+            #'propagate': False
         },
     }
 }
