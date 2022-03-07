@@ -5,7 +5,7 @@ from page_loader.resources import update_links
 import logging.config
 import logging
 from page_loader.logging import LOGGING_CONFIG
-from progress.bar import FillingSquaresBar, Bar
+from progress.bar import FillingSquaresBar
 from page_loader.storage import make_folder, make_save
 from page_loader.exceptions import Error
 
@@ -39,8 +39,7 @@ def download_resources(original_url, local_dir, urls):
     bar = FillingSquaresBar('Loading', max=len(urls))
     for item in urls:
         local_path = os.path.join(root_dir, str(item['filename']))
-        with requests.get(item['url'], stream=True) as r:
-            r.raise_for_status()
+        with get_response(item['url']) as r:
             with open(local_path, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     logger.info(f'Save to the {local_path}')
