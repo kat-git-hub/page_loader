@@ -14,11 +14,11 @@ LOGGING_CONFIG = {
         },
     },
     'loggers': {
-        #'': {
-        #    'handlers': ['default'],
-        #    'level': 'DEBUG',
-        #    'propagate': False
-        #},
+        '': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
         'page_loader': {
             'handlers': ['default'],
             'level': 'DEBUG',
