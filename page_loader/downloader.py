@@ -27,7 +27,7 @@ def download(original_url, path=''):
                               original_url, local_path)
     make_save(path_html, html)
     download_resources(original_url, path, urls)
-    logger.info('Done.\n')
+    #logger.info('Done')
     return path_html
 
 
