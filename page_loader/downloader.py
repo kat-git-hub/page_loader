@@ -5,7 +5,7 @@ from page_loader.resources import update_links
 import logging.config
 import logging
 from page_loader.logging import LOGGING_CONFIG
-from progress.bar import FillingSquaresBar
+from progress.bar import FillingSquaresBar, Bar
 from page_loader.storage import make_folder, make_save
 from page_loader.exceptions import Error
 
