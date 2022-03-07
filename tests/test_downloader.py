@@ -32,7 +32,8 @@ def test_download():
             with open(d, 'rb') as f_png:
                 assert f_png.read() == read_png
             with open(os.path.join(resources_path, 'ru-hexlet-io-packs-js-runtime.js')) as f_js:
-                assert f_js.read() == read_js   
+                assert f_js.read() == read_js
+
 
 def test_403_error():
     with TemporaryDirectory() as tmp_dir:
