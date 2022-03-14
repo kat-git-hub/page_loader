@@ -14,9 +14,9 @@ link = {'css': 'ru-hexlet-io-assets-application.css',
 
 @pytest.fixture
 def get_open_file():
-    with open('tests/fixtures/html_before.html', 'r', encoding='utf-8') as f:
+    with open('tests/fixtures/html_before.html') as f:
         file_before = f.read()
-    with open('tests/fixtures/html_after.html', 'r', encoding='utf-8') as af:
+    with open('tests/fixtures/html_after.html') as af:
         file_after = af.read()
     with open('tests/fixtures/runtime.js') as js:
         read_js = js.read()
