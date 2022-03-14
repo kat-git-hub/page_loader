@@ -7,32 +7,52 @@ from page_loader.exceptions import Error
 
 
 URL = 'https://ru.hexlet.io/courses'
-file_before = open('tests/fixtures/html_before.html').read()
-file_after = open('tests/fixtures/html_after.html').read()
-read_css = open('tests/fixtures/application.css').read()
-read_png = open('tests/fixtures/nodejs.png', 'rb').read()
-read_js = open('tests/fixtures/runtime.js').read()
+link = {'css': 'ru-hexlet-io-assets-application.css',
+        'png': 'ru-hexlet-io-assets-professions-nodejs.png',
+        'js': 'ru-hexlet-io-packs-js-runtime.js'}
 
 
-def test_download():
+@pytest.fixture
+def get_open_file():
+    with open('tests/fixtures/html_before.html', 'r', encoding='utf-8') as f:
+        file_before = f.read()
+    with open('tests/fixtures/html_after.html', 'r', encoding='utf-8') as af:
+        file_after = af.read()
+    with open('tests/fixtures/runtime.js') as js:
+        read_js = js.read()
+    with open('tests/fixtures/application.css') as css:
+        read_css = css.read()
+    return (file_before, read_js, read_css, file_after)
+
+
+@pytest.fixture
+def get_read_png():
+    with open('tests/fixtures/nodejs.png', 'rb') as f:
+        read_png = f.read()
+        return read_png
+
+
+def test_download(get_open_file, get_read_png):
     with TemporaryDirectory() as tmp_dir:
         with requests_mock.Mocker() as m:
-            m.get(URL, text=file_before)
-            m.get('https://ru.hexlet.io/packs/js/runtime.js', text=read_js)
-            m.get('https://ru.hexlet.io/assets/application.css', text=read_css)
-            m.get('https://ru.hexlet.io/assets/professions/nodejs.png', content=read_png)
+            m.get(URL, text=get_open_file[0])
+            m.get('https://ru.hexlet.io/packs/js/runtime.js',
+                  text=get_open_file[1])
+            m.get('https://ru.hexlet.io/assets/application.css',
+                  text=get_open_file[2])
+            m.get('https://ru.hexlet.io/assets/professions/nodejs.png',
+                  content=get_read_png)
             file_path = download(URL, tmp_dir)
             assert os.path.isfile(file_path)
             resources_path = os.path.join(tmp_dir, 'ru-hexlet-io-courses_files')
-            with open(file_path) as f:
-                assert f.read() == file_after
-            with open(os.path.join(resources_path, 'ru-hexlet-io-assets-application.css')) as f_css:
-                assert f_css.read() == read_css
-            d = os.path.join(resources_path, 'ru-hexlet-io-assets-professions-nodejs.png')
-            with open(d, 'rb') as f_png:
-                assert f_png.read() == read_png
-            with open(os.path.join(resources_path, 'ru-hexlet-io-packs-js-runtime.js')) as f_js:
-                assert f_js.read() == read_js
+            with open(file_path, 'r', encoding='utf-8') as f:
+                assert f.read() == get_open_file[3]
+            with open(os.path.join(resources_path, link['css'])) as f_css:
+                assert f_css.read() == get_open_file[2]
+            with open(os.path.join(resources_path, link['png']), 'rb') as f_png:
+                assert f_png.read() == get_read_png
+            with open(os.path.join(resources_path, link['js'])) as f_js:
+                assert f_js.read() == get_open_file[1]
 
 
 def test_403_error():
