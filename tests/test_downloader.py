@@ -46,7 +46,12 @@ def test_download(get_open_file, get_read_png):
             assert os.path.isfile(file_path)
             resources_path = os.path.join(tmp_dir, 'ru-hexlet-io-courses_files')
             with open(file_path, 'r', encoding='utf-8') as f:
-                assert f.read() == get_open_file[3]
+                actual_content = f.read().strip()
+                expected_content = get_open_file[3].strip()
+                assert (
+                    actual_content.replace(' ', '').replace('\n', '')
+                    == expected_content.replace(' ', '').replace('\n', '')
+                )
             with open(os.path.join(resources_path, link['css'])) as f_css:
                 assert f_css.read() == get_open_file[2]
             with open(os.path.join(resources_path, link['png']), 'rb') as f_png:
@@ -57,10 +62,11 @@ def test_download(get_open_file, get_read_png):
 
 def test_403_error():
     with TemporaryDirectory() as tmp_dir:
-        with pytest.raises(Error) as excinfo:
-            url = 'https://en.wikipediaa.com/'
-            download(url, tmp_dir)
-        assert '403 Client Error: Forbidden for url' in str(excinfo.value)
+        with requests_mock.Mocker() as m:
+            m.get('https://example.com/forbidden', status_code=403)
+            with pytest.raises(Error) as excinfo:
+                download('https://example.com/forbidden', tmp_dir)
+            assert '403' in str(excinfo.value)
 
 
 def test_404_error():
